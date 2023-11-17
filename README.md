@@ -188,6 +188,6 @@ Before coming to this guide, please refer to [Get started with ASP.NET Core MVC,
 
   ![Validation Error UI](resources/validation-create.png)
 
-Above are all instructions on validate properties using `ValidationAttribute`, refer to the [ValidationAttribute Class](https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations.validationattribute?view=net-8.0).
+    Above are all instructions on validate properties using `ValidationAttribute`, refer to the [ValidationAttribute Class](https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations.validationattribute?view=net-8.0).
 
 Next let's [Seed the database an ASP.NET Core MVC app](https://github.com/NguyenPhuDuc307/seed-the-database).
