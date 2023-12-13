@@ -5,27 +5,27 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using MVCProduct.Models;
-using MvcProduct.Data;
+using MvcCourse.Data;
+using MvcCourse.Data.Entities;
 
-namespace MVCProduct.Controllers
+namespace MvcCourse.Controllers
 {
-    public class ProductsController : Controller
+    public class CoursesController : Controller
     {
-        private readonly MvcProductContext _context;
+        private readonly CourseDbContext _context;
 
-        public ProductsController(MvcProductContext context)
+        public CoursesController(CourseDbContext context)
         {
             _context = context;
         }
 
-        // GET: Products
+        // GET: Courses
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Product.ToListAsync());
+            return View(await _context.Courses.ToListAsync());
         }
 
-        // GET: Products/Details/5
+        // GET: Courses/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace MVCProduct.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Product
+            var course = await _context.Courses
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (product == null)
+            if (course == null)
             {
                 return NotFound();
             }
 
-            return View(product);
+            return View(course);
         }
 
-        // GET: Products/Create
+        // GET: Courses/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Products/Create
+        // POST: Courses/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Price,Rating")] Product product)
+        public async Task<IActionResult> Create([Bind("Id,Title,Topic,ReleaseDate,Author")] Course course)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(product);
+                _context.Add(course);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(product);
+            return View(course);
         }
 
-        // GET: Products/Edit/5
+        // GET: Courses/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace MVCProduct.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Product.FindAsync(id);
-            if (product == null)
+            var course = await _context.Courses.FindAsync(id);
+            if (course == null)
             {
                 return NotFound();
             }
-            return View(product);
+            return View(course);
         }
 
-        // POST: Products/Edit/5
+        // POST: Courses/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Price,Rating")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Topic,ReleaseDate,Author")] Course course)
         {
-            if (id != product.Id)
+            if (id != course.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace MVCProduct.Controllers
             {
                 try
                 {
-                    _context.Update(product);
+                    _context.Update(course);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductExists(product.Id))
+                    if (!CourseExists(course.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace MVCProduct.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(product);
+            return View(course);
         }
 
-        // GET: Products/Delete/5
+        // GET: Courses/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,34 +124,34 @@ namespace MVCProduct.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Product
+            var course = await _context.Courses
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (product == null)
+            if (course == null)
             {
                 return NotFound();
             }
 
-            return View(product);
+            return View(course);
         }
 
-        // POST: Products/Delete/5
+        // POST: Courses/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var product = await _context.Product.FindAsync(id);
-            if (product != null)
+            var course = await _context.Courses.FindAsync(id);
+            if (course != null)
             {
-                _context.Product.Remove(product);
+                _context.Courses.Remove(course);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProductExists(int id)
+        private bool CourseExists(int id)
         {
-            return _context.Product.Any(e => e.Id == id);
+            return _context.Courses.Any(e => e.Id == id);
         }
     }
 }

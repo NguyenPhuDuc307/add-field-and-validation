@@ -14,30 +14,31 @@ When EF Code First is used to automatically create a database, Code First:
 
 In this validation section:
 
-- Validation logic is added to the Product model.
-- You ensure that the validation rules are enforced any time a user creates or edits a product.
+- Validation logic is added to the Course entity.
+- You ensure that the validation rules are enforced any time a user creates or edits a course.
 
 Before coming to this guide, please refer to [Get started with ASP.NET Core MVC, Connect to SQL Server database to CRUD](https://github.com/NguyenPhuDuc307/get-started-dotnet-mvc).
 
 ## Part 1: Add a new field
 
-- **Add a Rating Property to the Product Model**
+- **Add a Author Property to the Course Model**
 
-  Add a `Rating` property to `Models/Product.cs`:
+  Add a `Author` property to `Models/Course.cs`:
 
   ```c#
-  using System.ComponentModel.DataAnnotations.Schema;
+    using System.ComponentModel.DataAnnotations;
 
-  namespace MVCProduct.Models;
+    namespace MvcCourse.Data.Entities;
 
-  public class Product
-  {
-      public int Id { get; set; }
-      public string? Title { get; set; }
-      [Column(TypeName = "decimal(18,2)")]
-      public decimal Price { get; set; }
-      public string? Rating { get; set; }
-  }
+    public class Course
+    {
+        public int Id { get; set; }
+        public string? Title { get; set; }
+        public string? Topic { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime ReleaseDate { get; set; }
+        public string? Author { get; set; }
+    }
   ```
 
   Build the app:
@@ -46,88 +47,99 @@ Before coming to this guide, please refer to [Get started with ASP.NET Core MVC,
   dotnet build
   ```
 
-  Because you've added a new field to the `Product` class, you need to update the property binding list so this new property will be included. In `ProductsController.cs`, update the [Bind] attribute for both the `Create` and `Edit` action methods to include the Rating property:
+  Because you've added a new field to the `Course` class, you need to update the property binding list so this new property will be included. In `CoursesController.cs`, update the [Bind] attribute for both the `Create` and `Edit` action methods to include the Author property:
 
   ```c#
-  [Bind("Id,Title,Price,Rating")]
+  [Bind("Id,Title,Topic,ReleaseDate,Author")]
   ```
 
-  Update the view templates in order to display, create, and edit the new `Rating` property in the browser view.
+  Update the view templates in order to display, create, and edit the new `Author` property in the browser view.
 
-  Edit the `/Views/Products/Index.cshtml` file and add a Rating field:
+  Edit the `/Views/Courses/Index.cshtml` file and add a Author field:
 
   ```html
-  <table class="table">
-      <thead>
-          <tr>
-              <th>
-                  @Html.DisplayNameFor(model => model.Title)
-              </th>
-              <th>
-                  @Html.DisplayNameFor(model => model.Price)
-              </th>
-              <th>
-                  @Html.DisplayNameFor(model => model.Rating)
-              </th>
-              <th></th>
-          </tr>
-      </thead>
-      <tbody>
-          @foreach (var item in Model)
-          {
-              <tr>
-                  <td>
-                      @Html.DisplayFor(modelItem => item.Title)
-                  </td>
-                  <td>
-                      @Html.DisplayFor(modelItem => item.Price)
-                  </td>
-                  <td>
-                      @Html.DisplayFor(modelItem => item.Rating)
-                  </td>
-                  <td>
-                      <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                      <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                      <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                  </td>
-              </tr>
-          }
-      </tbody>
-  </table>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Topic)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ReleaseDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Author)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Topic)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReleaseDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Author)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
   ```
 
-  Update the `/Views/Products/Create.cshtml` with a Rating field:
+  Update the `/Views/Courses/Create.cshtml` with a Author field:
 
   ```html
-  <form asp-action="Create">
-      <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-      <div class="form-group">
-          <label asp-for="Title" class="control-label"></label>
-          <input asp-for="Title" class="form-control" />
-          <span asp-validation-for="Title" class="text-danger"></span>
-      </div>
-      <div class="form-group">
-          <label asp-for="Rating" class="control-label"></label>
-          <input asp-for="Rating" class="form-control" />
-          <span asp-validation-for="Rating" class="text-danger"></span>
-      </div>
-      <div class="form-group">
-          <label asp-for="Price" class="control-label"></label>
-          <input asp-for="Price" class="form-control" />
-          <span asp-validation-for="Price" class="text-danger"></span>
-      </div>
-      <div class="form-group">
-          <input type="submit" value="Create" class="btn btn-primary" />
-      </div>
-  </form>
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Title" class="control-label"></label>
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Topic" class="control-label"></label>
+            <input asp-for="Topic" class="form-control" />
+            <span asp-validation-for="Topic" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ReleaseDate" class="control-label"></label>
+            <input asp-for="ReleaseDate" class="form-control" />
+            <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Author" class="control-label"></label>
+            <input asp-for="Author" class="form-control" />
+            <span asp-validation-for="Author" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+    </form>
   ```
 
-  Similarly, update the `/Views/Products/Edit.cshtml` with a Rating field:
+  Similarly, update the `/Views/Courses/Edit.cshtml`, `/Views/Courses/Details.cshtml`, `/Views/Courses/Delete.cshtml` with a Author field:
 
   Finally run the following .NET CLI commands:
 
   ```bash
-  dotnet ef migrations add AddRatingInProduct
+  dotnet ef migrations add AddAuthorInCourse
   ```
 
   ```bash
@@ -136,33 +148,28 @@ Before coming to this guide, please refer to [Get started with ASP.NET Core MVC,
 
 ## Part 2: Add validation
 
-- **Add validation rules to the product model**
+- **Add validation rules to the course model**
 
     The DataAnnotations namespace provides a set of built-in validation attributes that are applied declaratively to a class or property. DataAnnotations also contains formatting attributes like `DataType` that help with formatting and don't provide any validation.
 
-    Update the `Product` class to take advantage of the built-in validation attributes `Required`, `StringLength`, `RegularExpression`, `Range` and the `DataType` formatting attribute.
+    Update the `Course` class to take advantage of the built-in validation attributes `Required`, `StringLength`, `RegularExpression`, `Range` and the `DataType` formatting attribute.
 
     ```c#
-    using System;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-
-    namespace MVCProduct.Models;
-
-    public class Product
+    public class Course
     {
         public int Id { get; set; }
         [StringLength(60, MinimumLength = 3)]
         [Required]
         public string? Title { get; set; }
-        [Range(1, 100000)]
-        [DataType(DataType.Currency)]
-        [Column(TypeName = "decimal(18,2)")]
-        public decimal Price { get; set; }
-        [RegularExpression(@"^[A-Z]+[a-zA-Z0-9""'\s-]*$")]
-        [StringLength(20)]
+        [StringLength(60)]
         [Required]
-        public string? Rating { get; set; }
+        public string? Topic { get; set; }
+        [Display(Name = "Release Date")]
+        [DataType(DataType.Date)]
+        public DateTime ReleaseDate { get; set; }
+        [StringLength(60)]
+        [Required]
+        public string? Author { get; set; }
     }
     ```
 
@@ -170,21 +177,16 @@ Before coming to this guide, please refer to [Get started with ASP.NET Core MVC,
 
   - The `Required` and `MinimumLength` attributes indicate that a property must have a value; but nothing prevents a user from entering white space to satisfy this validation.
 
-  - The `RegularExpression` "Rating":
-
-    - Requires that the first character be an uppercase letter.
-    - Allows special characters and numbers in subsequent spaces. "PG-13" is valid for a rating.
-  - The `Range` attribute constrains a value to within a specified range.
-
   - The `StringLength` attribute lets you set the maximum length of a string property, and optionally its minimum length.
 
   - Value types (such as `decimal`, `int`, `float`, `DateTime`) are inherently required and don't need the `[Required]` attribute.
+  - Refer to the [System.ComponentModel.DataAnnotations Namespace](https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations)
   
 - **Validation Error UI**
   
-  Run the app and navigate to the `Products` controller.
+  Run the app and navigate to the `Courses` controller.
 
-  Select the **Create New** link to add a new product. Fill out the form with some invalid values. As soon as jQuery client side validation detects the error, it displays an error message.
+  Select the **Create New** link to add a new course. Fill out the form with some invalid values. As soon as jQuery client side validation detects the error, it displays an error message.
 
   ![Validation Error UI](resources/validation-create.png)
 

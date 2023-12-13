@@ -1,4 +1,4 @@
-@model IEnumerable<MVCProduct.Models.Product>
+@model IEnumerable<MvcCourse.Data.Entities.Course>
 
 @{
     ViewData["Title"] = "Index";
@@ -16,10 +16,13 @@
                 @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
+                @Html.DisplayNameFor(model => model.Topic)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Rating)
+                @Html.DisplayNameFor(model => model.ReleaseDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Author)
             </th>
             <th></th>
         </tr>
@@ -32,10 +35,13 @@
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Price)
+                    @Html.DisplayFor(modelItem => item.Topic)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Rating)
+                    @Html.DisplayFor(modelItem => item.ReleaseDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author)
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using MvcProduct.Data;
+using MvcCourse.Data;
+
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<MvcProductContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("MvcProductContext") ?? throw new InvalidOperationException("Connection string 'MvcProductContext' not found.")));
+builder.Services.AddDbContext<CourseDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("CourseDbContext") ?? throw new InvalidOperationException("Connection string 'CourseDbContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

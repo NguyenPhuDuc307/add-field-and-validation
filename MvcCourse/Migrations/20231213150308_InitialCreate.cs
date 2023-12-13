@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace MVCProduct.Migrations
+namespace MvcCourse.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration
@@ -11,17 +12,18 @@ namespace MVCProduct.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Product",
+                name: "Courses",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    Topic = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ReleaseDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Product", x => x.Id);
+                    table.PrimaryKey("PK_Courses", x => x.Id);
                 });
         }
 
@@ -29,7 +31,7 @@ namespace MVCProduct.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Product");
+                name: "Courses");
         }
     }
 }

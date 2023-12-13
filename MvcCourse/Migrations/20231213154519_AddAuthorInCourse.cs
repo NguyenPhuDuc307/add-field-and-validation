@@ -2,17 +2,17 @@
 
 #nullable disable
 
-namespace MVCProduct.Migrations
+namespace MvcCourse.Migrations
 {
     /// <inheritdoc />
-    public partial class AddRatingInProduct : Migration
+    public partial class AddAuthorInCourse : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                name: "Rating",
-                table: "Product",
+                name: "Author",
+                table: "Courses",
                 type: "nvarchar(max)",
                 nullable: true);
         }
@@ -21,8 +21,8 @@ namespace MVCProduct.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Rating",
-                table: "Product");
+                name: "Author",
+                table: "Courses");
         }
     }
 }
