@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using MvcCourse.Data;
+using CourseManagement.Data;
 
 #nullable disable
 
-namespace MvcCourse.Migrations
+namespace CourseManagement.Migrations
 {
     [DbContext(typeof(CourseDbContext))]
     [Migration("20231213154519_AddAuthorInCourse")]
@@ -25,7 +25,7 @@ namespace MvcCourse.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("MvcCourse.Data.Entities.Course", b =>
+            modelBuilder.Entity("CourseManagement.Data.Entities.Course", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

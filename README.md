@@ -28,7 +28,7 @@ Before coming to this guide, please refer to [Get started with ASP.NET Core MVC,
   ```c#
     using System.ComponentModel.DataAnnotations;
 
-    namespace MvcCourse.Data.Entities;
+    namespace CourseManagement.Data.Entities;
 
     public class Course
     {

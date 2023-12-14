@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace MvcCourse.Migrations
+namespace CourseManagement.Migrations
 {
     /// <inheritdoc />
     public partial class AddAuthorInCourse : Migration
