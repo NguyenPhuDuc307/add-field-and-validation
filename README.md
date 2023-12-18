@@ -23,7 +23,7 @@ Before coming to this guide, please refer to [Get started with ASP.NET Core MVC,
 
 - **Add a Author Property to the Course Model**
 
-  Add a `Author` property to `Models/Course.cs`:
+  Add a `Author` property to `Data/Entities/Course.cs`:
 
   ```c#
     using System.ComponentModel.DataAnnotations;
