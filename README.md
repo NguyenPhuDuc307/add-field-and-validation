@@ -47,6 +47,16 @@ Before coming to this guide, please refer to [Get started with ASP.NET Core MVC,
   dotnet build
   ```
 
+  Run the following .NET CLI commands:
+
+    ```bash
+    dotnet ef migrations add AddAuthorInCourse
+    ```
+
+    ```bash
+    dotnet ef database update
+    ```
+
   Because you've added a new field to the `Course` class, you need to update the property binding list so this new property will be included. In `CoursesController.cs`, update the [Bind] attribute for both the `Create` and `Edit` action methods to include the Author property:
 
   ```c#
