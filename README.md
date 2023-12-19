@@ -17,7 +17,7 @@ In this validation section:
 - Validation logic is added to the Course entity.
 - You ensure that the validation rules are enforced any time a user creates or edits a course.
 
-Before coming to this guide, please refer to [Get started with ASP.NET Core MVC, Connect to SQL Server database to CRUD](https://github.com/NguyenPhuDuc307/get-started-dotnet-mvc).
+Before coming to this guide, please refer to [Part 2: Get started with ASP.NET Core MVC, Connect to SQL Server database to CRUD](https://github.com/NguyenPhuDuc307/get-started-dotnet-mvc).
 
 ## Part 1: Add a new field
 
@@ -202,4 +202,4 @@ Before coming to this guide, please refer to [Get started with ASP.NET Core MVC,
 
     Above are all instructions on validate properties using `ValidationAttribute`, refer to the [ValidationAttribute Class](https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations.validationattribute?view=net-8.0).
 
-Next let's [Seed the database an ASP.NET Core MVC application](https://github.com/NguyenPhuDuc307/seed-the-database).
+Next let's [Part 4: Seed the database an ASP.NET Core MVC application](https://github.com/NguyenPhuDuc307/seed-the-database).
